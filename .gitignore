@@ -30,3 +30,14 @@
 *.exe
 *.out
 *.app
+
+*.suo
+*.user
+*.ncb
+Debug/
+Release/
+CodeAnalyst/
+
+ipch/
+*.sdf
+*.opensdf
