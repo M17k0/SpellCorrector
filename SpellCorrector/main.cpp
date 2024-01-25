@@ -11,8 +11,6 @@ int main()
 	Test test(corrector);
 
 	// run tests
-	test.runUserTests();
-
 	test.runTestFileTests(TEST_FILE);
 
 	return 0;

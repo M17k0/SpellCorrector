@@ -3,7 +3,7 @@
 #include "SpellingCorrector.h"
 #include "helpers.h"
 
-// Make a dictionary that stores all words in text file and their frequencies
+// Make a dictionary that holds a counter of how often each word appears in the text file
 void SpellingCorrector::loadDictionary(const std::string& filename)
 {
 	std::ifstream file(filename, std::ios::binary | std::ios::in);
@@ -29,9 +29,10 @@ void SpellingCorrector::loadDictionary(const std::string& filename)
 	}
 }
 
+// Correct a word
 std::string SpellingCorrector::correct(const std::string& word) {
     std::unordered_set<std::string> result;
-    std::unordered_set<std::string> candidates;
+    std::unordered_map<std::string, int> candidates;
 
     if (dictionary.find(word) != dictionary.end())
         return word;
@@ -40,7 +41,7 @@ std::string SpellingCorrector::correct(const std::string& word) {
     filterKnown(result, candidates);
 
     if (!candidates.empty())
-        return *candidates.begin(); // Return the first candidate
+        return findMostCommon(candidates);
 
     for (const auto& editedWord : result) {
         std::unordered_set<std::string> subResult;
@@ -49,42 +50,47 @@ std::string SpellingCorrector::correct(const std::string& word) {
         filterKnown(subResult, candidates);
 
         if (!candidates.empty())
-            return *candidates.begin(); // Return the first candidate
+            return findMostCommon(candidates);
     }
 
     return "";
 }
 
+// Make all possible edits of a word
 void SpellingCorrector::possibleEdits(const std::string& word, std::unordered_set<std::string>& result) {
     const std::string letters = "abcdefghijklmnopqrstuvwxyz";
 
     // Handle deletions
-    for (std::string::size_type i = 0; i < word.size(); i++) {
+    for (std::string::size_type i = 0; i < word.size(); i++) 
+    {
         result.insert(word.substr(0, i) + word.substr(i + 1));
     }
 
     // Handle transpositions
-    for (std::string::size_type i = 0; i < word.size() - 1; i++) {
+    for (std::string::size_type i = 0; i < word.size() - 1; i++) 
+    {
         std::string transposed = word;
         std::swap(transposed[i], transposed[i + 1]);
         result.insert(transposed);
     }
 
     // Handle alterations and insertions
-    for (char j : letters) {
-        for (std::string::size_type i = 0; i <= word.size(); i++) {
+    for (char j : letters) 
+    {
+        for (std::string::size_type i = 0; i <= word.size(); i++) 
+        {
             result.insert(word.substr(0, i) + j + word.substr(i));
-            if (i < word.size() && word[i] != j) {
+            if (i < word.size() && word[i] != j)
                 result.insert(word.substr(0, i) + j + word.substr(i + 1));
-            }
         }
     }
 }
 
-void SpellingCorrector::filterKnown(const std::unordered_set<std::string>& edits, std::unordered_set<std::string>& knownWords) {
-    for (const auto& word : edits) {
-        if (dictionary.find(word) != dictionary.end()) {
-            knownWords.insert(word);
-        }
+// Filters only the real words that are in the counter dictionary
+void SpellingCorrector::filterKnown(const std::unordered_set<std::string>& edits, std::unordered_map<std::string, int>& knownWords) {
+    for (const auto& word : edits) 
+    {
+        if (dictionary.find(word) != dictionary.end())
+            knownWords.insert({ word, dictionary[word] });
     }
 }

@@ -3,9 +3,9 @@
 
 size_t getFileSize(std::ifstream& file)
 {
-	long current = file.tellg();
+	size_t current = file.tellg();
 	file.seekg(0, std::ios::end);
-	long size = file.tellg();
+	size_t size = file.tellg();
 	file.seekg(current, std::ios::beg);
 
 	return size;
@@ -20,6 +20,21 @@ void transformNonLetters(std::string& str, char replacement = '-')
 			c = '-';
 		}
 	}
+}
+
+std::string findMostCommon(const std::unordered_map<std::string, int>& candidates)
+{
+	std::pair<std::string, int> maxPair = { "", 0 };
+
+	for (const auto& candidate : candidates)
+	{
+		if (candidate.second > maxPair.second)
+		{
+			maxPair = candidate;
+		}
+	}
+
+	return maxPair.first;
 }
 
 #endif // !_HELPERS_H_
