@@ -1,31 +1,19 @@
-#include <iostream>
-#include <fstream>
-#include <sstream>
-
 #include "SpellingCorrector.h"
+#include "Test.h"
 
-SpellingCorrector corrector;
-
-void Correct(const std::string& wrong, const std::string& expected)
-{
-	const bool isCorrect = corrector.correct(wrong) == expected;
-	std::cout << "(" << wrong << ") == (" << expected << ") = (" << std::boolalpha << isCorrect << ")" << std::endl;
-}
+const std::string TEXT_FILE_DICTIONARY = "big.txt";
+const std::string TEST_FILE = "spell-testset1.txt";
 
 int main()
 {
+	SpellingCorrector corrector;
+	corrector.loadDictionary(TEXT_FILE_DICTIONARY);
+	Test test(corrector);
 
+	// run tests
+	test.runUserTests();
 
-	// tests
-	corrector.loadDictionary("big.txt");
+	test.runTestFileTests(TEST_FILE);
 
-	Correct("speling", "spelling"); // insert
-	Correct("korrectud", "corrected"); // replace 2
-	Correct("bycycle", "bicycle"); // replace
-	Correct("inconvient", "inconvenient"); // insert 2
-	Correct("arrainged", "arranged"); // delete
-	Correct("peotry", "poetry"); // transpose
-	Correct("peotryy", "poetry"); // transpose + delete
-	Correct("word", "word"); // known
-	Correct("quintessential", ""); // unknown
+	return 0;
 }
