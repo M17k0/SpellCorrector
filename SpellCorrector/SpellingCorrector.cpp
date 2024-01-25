@@ -1,7 +1,4 @@
-#include <fstream>
-#include <string>
 #include <algorithm>
-#include <iostream>
 
 #include "SpellingCorrector.h"
 #include "helpers.h"
@@ -49,15 +46,17 @@ std::string SpellingCorrector::correct(const std::string& word) {
 
         possibleEdits(editedWord, subResult);
         filterKnown(subResult, candidates);
-    }
 
-    if (!candidates.empty())
-        return *candidates.begin(); // Return the first candidate
+        if (!candidates.empty())
+            return *candidates.begin(); // Return the first candidate
+    }
 
     return "";
 }
 
 void SpellingCorrector::possibleEdits(const std::string& word, std::unordered_set<std::string>& result) {
+    const std::string letters = "abcdefghijklmnopqrstuvwxyz";
+
     // Handle deletions
     for (std::string::size_type i = 0; i < word.size(); i++) {
         result.insert(word.substr(0, i) + word.substr(i + 1));
@@ -71,7 +70,7 @@ void SpellingCorrector::possibleEdits(const std::string& word, std::unordered_se
     }
 
     // Handle alterations and insertions
-    for (char j = 'a'; j <= 'z'; ++j) {
+    for (char j : letters) {
         for (std::string::size_type i = 0; i <= word.size(); i++) {
             result.insert(word.substr(0, i) + j + word.substr(i));
             if (i < word.size() && word[i] != j) {
