@@ -1,6 +1,6 @@
-contented: contenpted contende contended contentid
+contented: contenpted contende contentid
 beginning: begining
-problem: problam proble promblem proplen
+problem: problam promblem proplen
 driven: dirven
 ecstasy: exstacy ecstacy
 juice: guic juce jucie juise juse
@@ -29,7 +29,6 @@ receipt: receit receite reciet recipt
 remind: remine remined
 initials: inetials inistals initails initals intials
 magnificent: magnificnet magificent magnifcent magnifecent magnifiscant magnifisent magnificant
-aunt: annt anut arnt
 initial: intial
 there: ther
 experiences: experances
