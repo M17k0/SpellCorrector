@@ -1,8 +1,9 @@
 #ifndef _TEST_H_
 #define _TEST_H_
-#include "SpellingCorrector.h"
 
 #include <iostream>
+
+#include "SpellingCorrector.h"
 
 class Test
 {
@@ -12,6 +13,7 @@ public:
 
 	void runUserTests();
 	void runTestFileTests(std::string fileName);
+
 private:
 	SpellingCorrector corrector;
 	std::string testFileName;

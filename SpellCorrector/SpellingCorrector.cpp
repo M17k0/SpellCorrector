@@ -3,6 +3,7 @@
 #include "SpellingCorrector.h"
 #include "helpers.h"
 
+// Make a dictionary that stores all words in text file and their frequencies
 void SpellingCorrector::loadDictionary(const std::string& filename)
 {
 	std::ifstream file(filename, std::ios::binary | std::ios::in);

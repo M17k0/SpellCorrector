@@ -1,9 +1,11 @@
 #ifndef _SPELLINGCORRECTOR_H_
 #define _SPELLINGCORRECTOR_H_
 
-#include <vector>
 #include <unordered_map>
 #include <unordered_set>
+#include <string>
+#include <fstream>
+#include <sstream>
 
 class SpellingCorrector
 {

@@ -22,19 +22,4 @@ void transformNonLetters(std::string& str, char replacement = '-')
 	}
 }
 
-std::string findMostCommon(const std::unordered_map<std::string, int>& candidates)
-{
-	std::pair<std::string, int> maxPair = { "", 0 };
-
-	for (const auto& candidate : candidates)
-	{
-		if (candidate.second > maxPair.second)
-		{
-			maxPair = candidate;
-		}
-	}
-
-	return maxPair.first;
-}
-
 #endif // !_HELPERS_H_
