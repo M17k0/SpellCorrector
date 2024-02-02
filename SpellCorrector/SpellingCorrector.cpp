@@ -30,7 +30,8 @@ void SpellingCorrector::loadDictionary(const std::string& filename)
 }
 
 // Correct a word
-std::string SpellingCorrector::correct(const std::string& word) {
+std::string SpellingCorrector::correct(const std::string& word) 
+{
     std::unordered_set<std::string> result;
     std::unordered_map<std::string, int> candidates;
 
@@ -57,17 +58,18 @@ std::string SpellingCorrector::correct(const std::string& word) {
 }
 
 // Make all possible edits of a word
-void SpellingCorrector::possibleEdits(const std::string& word, std::unordered_set<std::string>& result) {
+void SpellingCorrector::possibleEdits(const std::string& word, std::unordered_set<std::string>& result) 
+{
     const std::string letters = "abcdefghijklmnopqrstuvwxyz";
 
     // Handle deletions
-    for (std::string::size_type i = 0; i < word.size(); i++) 
+    for (std::string::size_type i = 0; i < word.size(); i++)
     {
         result.insert(word.substr(0, i) + word.substr(i + 1));
     }
 
     // Handle transpositions
-    for (std::string::size_type i = 0; i < word.size() - 1; i++) 
+    for (std::string::size_type i = 0; i < word.size() - 1; i++)
     {
         std::string transposed = word;
         std::swap(transposed[i], transposed[i + 1]);
@@ -87,7 +89,8 @@ void SpellingCorrector::possibleEdits(const std::string& word, std::unordered_se
 }
 
 // Filters only the real words that are in the counter dictionary
-void SpellingCorrector::filterKnown(const std::unordered_set<std::string>& edits, std::unordered_map<std::string, int>& knownWords) {
+void SpellingCorrector::filterKnown(const std::unordered_set<std::string>& edits, std::unordered_map<std::string, int>& knownWords) 
+{
     for (const auto& word : edits) 
     {
         if (dictionary.find(word) != dictionary.end())
